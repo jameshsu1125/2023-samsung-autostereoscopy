@@ -5,12 +5,14 @@ export const LandingState = { steps: LandingSteps.unset };
 export const LandingContext = createContext(LandingState);
 
 export const config = {
-	camera: { fov: 50, far: 500 },
+	camera: { fov: 25, far: 500 },
 	sky: {
 		enabled: true,
 	},
 	controls: {
-		distance: { min: 7, max: 50 },
+		distance: { min: 25, max: 25 },
+		// polar: { min: 0, max: 0 },
+		// azimuth: { min: 0, max: 0 },
 		polar: { min: -70, max: 70 },
 		azimuth: { min: -Infinity, max: Infinity },
 		default: {
@@ -21,16 +23,16 @@ export const config = {
 	light: {
 		ambient: {
 			color: 0xffffff,
-			intensity: 1,
+			intensity: 0.6,
 		},
 		spot: {
 			color: 0xffffff,
-			intensity: 1,
+			intensity: 0.3,
 			far: 100,
-			position: { x: 0, y: 3, z: 0 },
+			position: { x: -3, y: 6, z: 2 },
 		},
 		shadowMapSize: 256,
 		debug: true,
 	},
-	stats: true,
+	stats: false,
 };
