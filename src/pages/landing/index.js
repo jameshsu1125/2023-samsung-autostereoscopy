@@ -1,33 +1,22 @@
-import { memo, useContext, useState } from 'react';
-import { Context } from '../../settings/config';
-import { ACTION } from '../../settings/constant';
-import { LandingContext, LandingSteps } from './config';
+/* eslint-disable new-cap */
+import Webgl from 'lesca-webgl-threejs';
+import { memo, useEffect, useRef, useState } from 'react';
+import { LandingContext, LandingSteps, config } from './config';
+import canvas3D from './webgl';
 
-const Landing = memo(({ children }) => {
+const Landing = memo(() => {
+	const ref = useRef();
 	const value = useState(LandingSteps);
-	const [, setContext] = useContext(Context);
+
+	useEffect(() => {
+		const webgl = new Webgl(config);
+		ref.current.appendChild(webgl.render.domElement);
+		new canvas3D(webgl);
+	}, []);
 
 	return (
 		<LandingContext.Provider value={value}>
-			<div className='Landing'>{children}</div>
-			<button
-				className='rounded bg-blue-500 p-2 font-bold text-white hover:bg-blue-700'
-				type='button'
-				onClick={() => {
-					setContext({
-						type: ACTION.LoadingProcess,
-						state: { enabled: true },
-					});
-					setTimeout(() => {
-						setContext({
-							type: ACTION.LoadingProcess,
-							state: { enabled: false },
-						});
-					}, 2000);
-				}}
-			>
-				UPLOAD
-			</button>
+			<div ref={ref} className='Landing' />
 		</LandingContext.Provider>
 	);
 });
